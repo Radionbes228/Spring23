@@ -17,11 +17,14 @@ public class PersonDAO {
         peopleList.add(new Person(COUNT++, "Angel"));
         peopleList.add(new Person(COUNT++, "Phone"));
     }
-
     public List<Person> getPeopleList(){
         return peopleList;
     }
     public Person getOnePeople(int id){
        return peopleList.stream().filter(people -> people.getID() == id).findAny().orElse(null);
+    }
+    public void save(Person person) {
+        person.setID(COUNT++);
+        peopleList.add(person);
     }
 }
