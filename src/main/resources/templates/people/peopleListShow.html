@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,12 +9,13 @@
 </head>
 <body>
     <div th:each="person : ${people}">
-        <a th:text="${person.getName()}"
-           th:href="@{/people/{id}(id=${person.getID()})}">user</a>
+        <a th:href="@{/people/{id}(id=${person.getId()})}"
+           th:text="${person.getName() + ', ' + person.getAge()}">user</a>
     </div>
 
     <br/>
     <hr/>
-    <a href="/people/new">crete new people</a>
+
+    <a href="/people/new">Create new person</a>
 </body>
 </html>

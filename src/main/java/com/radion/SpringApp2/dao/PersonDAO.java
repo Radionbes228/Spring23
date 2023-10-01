@@ -9,31 +9,40 @@ import java.util.List;
 
 @Component
 public class PersonDAO {
-    private static int COUNT = 1;
-    List<Person> peopleList;
+    private static int PEOPLE_COUNT;
+    private List<Person> people;
+
     {
-        peopleList = new ArrayList<>();
-        peopleList.add(new Person(COUNT++, "Sergey"));
-        peopleList.add(new Person(COUNT++, "Angel"));
-        peopleList.add(new Person(COUNT++, "Phone"));
-    }
-    public List<Person> getPeopleList(){
-        return peopleList;
-    }
-    public Person getOnePeople(int id){
-       return peopleList.stream().filter(people -> people.getID() == id).findAny().orElse(null);
-    }
-    public void save(Person person) {
-        person.setID(COUNT++);
-        peopleList.add(person);
+        people = new ArrayList<>();
+
+        people.add(new Person(++PEOPLE_COUNT, "Tom", 24, "tom@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Bob", 52, "bob@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Mike", 18, "mike@yahoo.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Katy", 34, "katy@gmail.com"));
     }
 
-    public void update(int id, Person person) {
+    public List<Person> getPeopleList() {
+        return people;
+    }
+
+    public Person getOnePeople(int id) {
+        return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
+    }
+
+    public void save(Person person) {
+        person.setId(++PEOPLE_COUNT);
+        people.add(person);
+    }
+
+    public void update(int id, Person updatedPerson) {
         Person personToBeUpdated = getOnePeople(id);
-        personToBeUpdated.setName(person.getName());
+
+        personToBeUpdated.setName(updatedPerson.getName());
+        personToBeUpdated.setAge(updatedPerson.getAge());
+        personToBeUpdated.setEmail(updatedPerson.getEmail());
     }
 
     public void delete(int id) {
-        peopleList.removeIf(person -> person.getID()==id);
+        people.removeIf(p -> p.getId() == id);
     }
 }
